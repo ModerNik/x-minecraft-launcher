@@ -1,12 +1,11 @@
 import { GameProfileAndTexture, LoginOptions, Skin, SkinPayload, UserException, UserProfile } from '@xmcl/runtime-api'
 import { Logger } from '../util/log'
 import { toRecord } from '../util/object'
-import { MicrosoftAuthenticator } from '../clients/MicrosoftAuthenticator'
-import { MojangClient } from '../clients/MojangClient'
 import { MicrosoftOAuthClient } from '../clients/MicrosoftOAuthClient'
-import { XBoxResponse, normalizeSkinData } from '../entities/user'
+import { normalizeSkinData } from '../entities/user'
 import { UserTokenStorage } from '../entities/userTokenStore'
 import { UserAccountSystem } from './AccountSystem'
+import { MicrosoftAuthenticator, MojangClient, XBoxResponse } from '@xmcl/user'
 
 export class MicrosoftAccountSystem implements UserAccountSystem {
   constructor(
@@ -119,7 +118,7 @@ export class MicrosoftAccountSystem implements UserAccountSystem {
       directRedirectToLauncher,
       signal,
     }).catch((e) => {
-      this.logger.error(e)
+      this.logger.error(e) 
       throw new UserException({ type: 'userAcquireMicrosoftTokenFailed' }, 'Failed to acquire Microsoft access token', { cause: e })
     })
 
